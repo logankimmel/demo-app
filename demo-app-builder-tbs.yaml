@@ -9,7 +9,7 @@ secrets:
 imagePullSecrets:
 - name: harbor-binbytes
 ---
-# Creates TacoCat applicaiton builder 
+# Creates TacoCat java applicaiton builder 
 apiVersion: kpack.io/v1alpha1
 kind: Builder
 metadata:
@@ -191,3 +191,77 @@ spec:
         value: loadgen
       - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
         value: "-Dmaven.test.skip=true package -pl loadgen -am"
+# TacoCat Golang builder
+---
+apiVersion: kpack.io/v1alpha1
+kind: Builder
+metadata:
+  name: demo-app-go-builder
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag:  harbor.vmw.binbytes.io/demo-app/demo-app-go-builder
+  stack:
+    name: tiny
+    kind: ClusterStack
+  store:
+    name: default
+    kind: ClusterStore
+  order:
+  - group:
+    - id: tanzu-buildpacks/go
+---
+# Creates Spring Pet Clinic image to be built
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: inventory
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag:  harbor.vmw.binbytes.io/demo-app/inventory
+  builder:
+    name: demo-app-go-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: inventory
+# TacoCat .NET builder
+---
+apiVersion: kpack.io/v1alpha1
+kind: Builder
+metadata:
+  name: demo-app-dotnet-builder
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag:  harbor.vmw.binbytes.io/demo-app/demo-app-dotnet-builder
+  stack:
+    name: base
+    kind: ClusterStack
+  store:
+    name: default
+    kind: ClusterStore
+  order:
+  - group:
+    - id: tanzu-buildpacks/dotnet-core
+---
+# Creates Spring Pet Clinic image to be built
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: payments
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag:  harbor.vmw.binbytes.io/demo-app/payments
+  builder:
+    name: demo-app-dotnet-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: payments
