@@ -1,0 +1,193 @@
+# Service Account for TacoCat
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demo-app-sa
+  namespace: demo-app
+secrets:
+- name: harbor-binbytes
+imagePullSecrets:
+- name: harbor-binbytes
+---
+# Creates TacoCat applicaiton builder 
+apiVersion: kpack.io/v1alpha1
+kind: Builder
+metadata:
+  name: demo-app-java-builder
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/demo-app-java-builder
+  stack:
+    name: full
+    kind: ClusterStack
+  store:
+    name: default
+    kind: ClusterStore
+  order:
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/nodejs
+---
+# Creates TacoCat image to be built
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: shopping
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/shopping
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: shopping
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl shopping -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: styling
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/styling
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: styling
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl styling -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: printing
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/printing
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: printing
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl printing -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: packaging
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/packaging
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: packaging
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl packaging -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: delivery
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/delivery
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: delivery
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl delivery -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: notification
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/notification
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: notification
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl notification -am"
+---
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: loadgen
+  namespace: demo-app
+spec:
+  serviceAccount: demo-app-sa
+  tag: harbor.vmw.binbytes.io/demo-app/loadgen
+  builder:
+    name: demo-app-java-builder
+    kind: Builder
+  source:
+    git:
+      url: https://github.com/logankimmel/demo-app
+      revision: master
+    subPath: observability-sample
+  build:
+    env:
+      - name: BP_MAVEN_BUILT_MODULE # --> set the module to be built 
+        value: loadgen
+      - name: BP_MAVEN_BUILD_ARGUMENTS # --> set the Maven build arguments
+        value: "-Dmaven.test.skip=true package -pl loadgen -am"
