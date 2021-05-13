@@ -8,7 +8,7 @@ metadata:
   name: payments-blue
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -23,13 +23,8 @@ spec:
     spec:
       containers:
       - name: payments
-        image: <add your repository here>/payments:latest
+        image: harbor.vmw.binbytes.io/demo-app/payments:latest
         imagePullPolicy: Always
-        command:
-        - "dotnet"
-        - "run"
-        - "-p"
-        - "/payments/src/Payments/"
         ports:
         - containerPort: 50063
           name: application
@@ -37,6 +32,8 @@ spec:
         volumeMounts:
         - name: conf
           mountPath: /conf
+        - name: payment-settings
+          mountPath: /workspace
         resources:
           limits:
             memory: 512Mi
@@ -58,7 +55,7 @@ metadata:
   name: payments-green
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -73,13 +70,8 @@ spec:
     spec:
       containers:
         - name: payments
-          image: <add your repository here>/payments:latest
+          image: harbor.vmw.binbytes.io/demo-app/payments:latest
           imagePullPolicy: Always
-          command:
-            - "dotnet"
-            - "run"
-            - "-p"
-            - "/payments/src/Payments/"
           ports:
             - containerPort: 50063
               name: application
@@ -97,6 +89,7 @@ spec:
           configMap:
             name: app-config-green
             defaultMode: 0744
+        
 ---
 apiVersion: v1
 kind: Service
@@ -111,4 +104,5 @@ spec:
   ports:
   - name: application
     port: 50063
+
 

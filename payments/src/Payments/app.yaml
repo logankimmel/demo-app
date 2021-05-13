@@ -1,4 +1,0 @@
-﻿port: 50063
-applicationTagsYamlFile: "applicationTags.yaml"
-# wfReportingConfigYamlFile: "../../../wfReportingConfig.yaml"
-wfReportingConfigYamlFile: "/conf/wf-config.yaml"

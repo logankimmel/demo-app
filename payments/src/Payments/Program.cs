@@ -16,14 +16,14 @@ namespace Payments
         {
             var appConfig = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddYamlFile("app.yaml")
+                .AddJsonFile("app.json")
                 .Build();
             return WebHost.CreateDefaultBuilder(args)
                .ConfigureAppConfiguration((context, builder) =>
                {
                    var env = context.HostingEnvironment;
                    builder
-                       .AddYamlFile("app.yaml", optional: false)
+                       .AddJsonFile("app.json", optional: false)
                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
                })

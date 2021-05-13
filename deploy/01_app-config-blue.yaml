@@ -6,7 +6,7 @@ metadata:
 data:
   delivery-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: delivery
     shard: blue
     customTags:
@@ -27,7 +27,7 @@ data:
     {
     	"application": "tacocat",
     	"service":     "inventory",
-    	"cluster":     "kerrupt",
+    	"cluster":     "bare-metal",
     	"shard":       "blue",	
     
     	"inventoryHost": "0.0.0.0:60001",
@@ -47,7 +47,7 @@ data:
 
   notification-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: notification
     shard: blue
     customTags:
@@ -69,7 +69,7 @@ data:
 
   packaging-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: packaging
     shard: blue
     customTags:
@@ -83,7 +83,7 @@ data:
 
   payments-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: payments
     shard: blue
     customTags:
@@ -99,7 +99,7 @@ data:
 
   printing-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: printing
     shard: blue
     customTags:
@@ -112,9 +112,22 @@ data:
     applicationTagsYamlFile: "/conf/printing-app-tags.yaml"
     wfReportingConfigYamlFile: "/conf/wf-config.yaml"
 
+  shop-ui-app-tags.yaml: |
+    application: tacocat
+    cluster: to-cp-demo-cluster-12
+    service: shop-ui
+    shard: blue
+    customTags:
+      location: eks
+      env: production
+    server:
+      applicationConnectors:
+      - type: http
+      port: 8080
+
   shopping-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: shopping
     shard: blue
     customTags:
@@ -143,22 +156,9 @@ data:
     applicationTagsYamlFile: "/conf/shopping-app-tags.yaml"
     wfReportingConfigYamlFile: "/conf/wf-config.yaml"
 
-  shop-ui-app-tags.yaml: |
-    application: tacocat
-    cluster: to-cp-demo-cluster-12
-    service: shop-ui
-    shard: blue
-    customTags:
-      location: eks
-      env: production
-    server:
-      applicationConnectors:
-      - type: http
-      port: 8080
-
   styling-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: styling
     shard: blue
     customTags:
@@ -189,7 +189,7 @@ data:
 
   warehouse-app-tags.yaml: |
     application: tacocat
-    cluster: kerrupt
+    cluster: bare-metal
     service: warehouse
     shard: blue
     customTags:

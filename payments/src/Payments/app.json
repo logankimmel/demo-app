@@ -1,0 +1,5 @@
+﻿{
+    "port": "50063",
+    "applicationTagsYamlFile": "applicationTags.json",
+    "wfReportingConfigYamlFile": "/conf/wf-config.yaml"
+}

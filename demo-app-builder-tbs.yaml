@@ -264,4 +264,8 @@ spec:
     git:
       url: https://github.com/logankimmel/demo-app
       revision: master
-    subPath: payments
+    subPath: "payments"
+  build:
+    env:
+      - name: BP_DOTNET_PROJECT_PATH
+        value: "src/Payments"

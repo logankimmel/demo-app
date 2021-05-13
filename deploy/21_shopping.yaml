@@ -23,14 +23,12 @@ spec:
     spec:
       containers:
       - name: shopping
-        image: <add your repository here>/shopping:latest
+        image: harbor.vmw.binbytes.io/demo-app/shopping:latest
         imagePullPolicy: Always
         command:
-        - "java"
-        - "-jar"
-        - "/shopping.jar"
-        - "server"
-        - "/conf/shopping-app.yaml"
+          - "/cnb/process/web"
+          - "server"
+          - "/conf/shopping-app.yaml"
         ports:
         - containerPort: 50050
           name: application
@@ -42,8 +40,8 @@ spec:
         - name: conf
           mountPath: /conf
         resources:
-          limits:
-            memory: 512Mi
+          # limits:
+          #   memory: 512Mi
           requests:
             memory: 350Mi
       volumes:
@@ -77,12 +75,13 @@ spec:
     spec:
       containers:
         - name: shopping
-          image: <add your repository here>/shopping:latest
+          image: harbor.vmw.binbytes.io/demo-app/shopping:latest
           imagePullPolicy: Always
           command:
-            - "java"
-            - "-jar"
-            - "/shopping.jar"
+            # - "java"
+            # - "-jar"
+            # - "/shopping.jar"
+            - "/cnb/process/web"
             - "server"
             - "/conf/shopping-app.yaml"
           ports:
@@ -96,8 +95,8 @@ spec:
             - name: conf
               mountPath: /conf
           resources:
-            limits:
-              memory: 512Mi
+            # limits:
+            #   memory: 512Mi
             requests:
               memory: 350Mi
       volumes:

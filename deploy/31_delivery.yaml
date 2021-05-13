@@ -8,7 +8,7 @@ metadata:
   name: delivery-blue
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -23,12 +23,10 @@ spec:
     spec:
       containers:
       - name: delivery
-        image: <add your repository here>/delivery:latest
+        image: harbor.vmw.binbytes.io/demo-app/delivery:latest
         imagePullPolicy: Always
         command:
-        - "java"
-        - "-jar"
-        - "/delivery.jar"
+        - "/cnb/process/web"
         - "--spring.config.location=/conf/delivery-app.yml"
         ports:
         - containerPort: 50054
@@ -38,8 +36,6 @@ spec:
         - name: conf
           mountPath: /conf
         resources:
-          limits:
-            memory: 512Mi
           requests:
             memory: 350Mi
       volumes:
@@ -58,7 +54,7 @@ metadata:
   name: delivery-green
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -73,12 +69,10 @@ spec:
     spec:
       containers:
         - name: delivery
-          image: <add your repository here>/delivery:latest
+          image: harbor.vmw.binbytes.io/demo-app/delivery:latest
           imagePullPolicy: Always
           command:
-            - "java"
-            - "-jar"
-            - "/delivery.jar"
+            - "/cnb/process/web"
             - "--spring.config.location=/conf/delivery-app.yml"
           ports:
             - containerPort: 50054
@@ -88,8 +82,6 @@ spec:
             - name: conf
               mountPath: /conf
           resources:
-            limits:
-              memory: 512Mi
             requests:
               memory: 350Mi
       volumes:

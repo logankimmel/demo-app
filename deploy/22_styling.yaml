@@ -8,7 +8,7 @@ metadata:
   name: styling-blue
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -23,12 +23,10 @@ spec:
     spec:
       containers:
       - name: styling
-        image: <add your repository here>/styling:latest
+        image: harbor.vmw.binbytes.io/demo-app/styling:latest
         imagePullPolicy: Always
         command:
-        - "java"
-        - "-jar"
-        - "/styling.jar"
+        - "/cnb/process/web"
         - "server"
         - "/conf/styling-app.yaml"
         ports:
@@ -42,8 +40,6 @@ spec:
         - name: conf
           mountPath: /conf
         resources:
-          limits:
-            memory: 512Mi
           requests:
             memory: 350Mi
       volumes:
@@ -62,7 +58,7 @@ metadata:
   name: styling-green
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -77,12 +73,10 @@ spec:
     spec:
       containers:
         - name: styling
-          image: <add your repository here>/styling:latest
+          image: harbor.vmw.binbytes.io/demo-app/styling:latest
           imagePullPolicy: Always
           command:
-            - "java"
-            - "-jar"
-            - "/styling.jar"
+            - "/cnb/process/web"
             - "server"
             - "/conf/styling-app.yaml"
           ports:
@@ -96,8 +90,6 @@ spec:
             - name: conf
               mountPath: /conf
           resources:
-            limits:
-              memory: 512Mi
             requests:
               memory: 350Mi
       volumes:

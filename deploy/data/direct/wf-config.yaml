@@ -1,7 +1,7 @@
 reportingMechanism: direct
 
 ## demo
-server: https://<add your TO instance here>.wavefront.com
-token: <add your api key here>
+server: https://vmware.wavefront.com
+token: 9e93447b-fc84-4e85-835e-39dbe38fe538
 
 reportTraces: true

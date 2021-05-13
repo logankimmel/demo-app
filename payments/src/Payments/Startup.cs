@@ -47,7 +47,7 @@ namespace Payments
         private void ConfigureWavefront(IServiceCollection services)
         {
             var appTagsConfig = new ConfigurationBuilder()
-                .AddYamlFile(Path.Combine(env.ContentRootPath, Configuration["applicationTagsYamlFile"]))
+                .AddJsonFile(Path.Combine(env.ContentRootPath, Configuration["applicationTagsYamlFile"]))
                 .Build();
             ApplicationTags applicationTags = ConstructApplicationTags(appTagsConfig);
 

@@ -8,7 +8,7 @@ metadata:
   name: notification-blue
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -23,12 +23,10 @@ spec:
     spec:
       containers:
       - name: notification
-        image: <add your repository here>/notification:latest
+        image: harbor.vmw.binbytes.io/demo-app/notification:latest
         imagePullPolicy: Always 
         command:
-        - "java"
-        - "-jar"
-        - "/notification.jar"
+        - "/cnb/process/web"
         - "--spring.config.location=/conf/notification-app.yml"
         ports:
         - containerPort: 50056
@@ -38,8 +36,6 @@ spec:
         - name: conf
           mountPath: /conf
         resources:
-          limits:
-            memory: 512Mi
           requests:
             memory: 350Mi
       volumes:
@@ -58,7 +54,7 @@ metadata:
   name: notification-green
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -73,12 +69,10 @@ spec:
     spec:
       containers:
         - name: notification
-          image: <add your repository here>/notification:latest
+          image: harbor.vmw.binbytes.io/demo-app/notification:latest
           imagePullPolicy: Always
           command:
-            - "java"
-            - "-jar"
-            - "/notification.jar"
+            - "/cnb/process/web"
             - "--spring.config.location=/conf/notification-app.yml"
           ports:
             - containerPort: 50056
@@ -88,8 +82,6 @@ spec:
             - name: conf
               mountPath: /conf
           resources:
-            limits:
-              memory: 512Mi
             requests:
               memory: 350Mi
       volumes:

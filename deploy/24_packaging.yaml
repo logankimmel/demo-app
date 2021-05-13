@@ -8,7 +8,7 @@ metadata:
   name: packaging-blue
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -23,12 +23,10 @@ spec:
     spec:
       containers:
       - name: packaging
-        image: <add your repository here>/packaging:latest
+        image: harbor.vmw.binbytes.io/demo-app/packaging:latest
         imagePullPolicy: Always
         command:
-        - "java"
-        - "-jar"
-        - "/packaging.jar"
+        - "/cnb/process/web"
         - "/conf/packaging-app.yaml"
         ports:
         - containerPort: 50053
@@ -38,8 +36,6 @@ spec:
         - name: conf
           mountPath: /conf
         resources:
-          limits:
-            memory: 512Mi
           requests:
             memory: 350Mi
       volumes:
@@ -58,7 +54,7 @@ metadata:
   name: packaging-green
   namespace: tacocat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tacocat
@@ -73,12 +69,10 @@ spec:
     spec:
       containers:
         - name: packaging
-          image: <add your repository here>/packaging:latest
+          image: harbor.vmw.binbytes.io/demo-app/packaging:latest
           imagePullPolicy: Always
           command:
-            - "java"
-            - "-jar"
-            - "/packaging.jar"
+            - "/cnb/process/web"
             - "/conf/packaging-app.yaml"
           ports:
             - containerPort: 50053
@@ -88,8 +82,6 @@ spec:
             - name: conf
               mountPath: /conf
           resources:
-            limits:
-              memory: 512Mi
             requests:
               memory: 350Mi
       volumes:
