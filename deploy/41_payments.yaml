@@ -32,8 +32,6 @@ spec:
         volumeMounts:
         - name: conf
           mountPath: /conf
-        - name: payment-settings
-          mountPath: /workspace
         resources:
           limits:
             memory: 512Mi
